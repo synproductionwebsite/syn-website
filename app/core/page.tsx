@@ -23,7 +23,7 @@ const CorePage = () => {
        </p>
       </div>
       <div className="mb-20">
-        <h2 className="text-7xl text-right mb-3">L'ACCOMPAGNEMENT</h2>
+        <h2 className="text-7xl text-right mb-3">L&apos;ACCOMPAGNEMENT</h2>
         <p className="font-mono mr-15 text-justify ">
           Nous accompagnons les artistes émergents dans la structuration de leur projet artistique, en croisant diffusion, promotion et production.
           Ensemble, nous définissons une base solide et une stratégie de diffusion (live, communication, esthétique, représentation). Nous aidons aussi aux démarches administratives et à la constitution d&apos;un réseau.

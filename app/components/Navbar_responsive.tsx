@@ -8,68 +8,63 @@ interface NavbarProps {
   onContactClick?: () => void;
 }
 
-// Définition du composant Navbar avec forwardRef
 const Navbar = forwardRef<HTMLElement, NavbarProps>(({ className, onContactClick }, ref) => {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); // Gestion de l'état du menu mobile
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fonction pour fermer le menu
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <nav
-      ref={ref} // Référence pour le composant
+      ref={ref}
       className={`text-white flex items-center justify-between fixed top-0 px-4 py-2 z-50 w-full ${className}`}
       style={{ backgroundColor: "rgba(44, 93, 50, 0.6)" }}
     >
       {/* Logo centré */}
-      <div className="absolute left-1/2 top-1 transform -translate-x-1/2">
-        <img
+      <div className="absolute left-1/2 top-1 transform -translate-x-1/2 cursor-pointer">
+        <Image
           src="/img/logo/logo.png"
           alt="SYN logo"
-          className={`cursor-pointer transition-all duration-300 origin-top ${scrolled ? 'h-12' : 'h-20'}`}
-          onClick={() => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
+          width={scrolled ? 48 : 80}
+          height={scrolled ? 48 : 80}
+          className="transition-all duration-300 origin-top"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          priority // optionnel, logo important à charger vite
         />
       </div>
 
       {/* Bouton menu mobile */}
       <div className="block lg:hidden">
-        <button onClick={() => setMenuOpen(!menuOpen)} className="text-white text-3xl">
-          {menuOpen ? '×' : '☰'} {/* Icône menu hamburger */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="text-white text-3xl"
+          aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+        >
+          {menuOpen ? '×' : '☰'}
         </button>
       </div>
 
       {/* Navigation mobile */}
       {menuOpen && (
-        <div 
-        className="lg:hidden absolute top-[52px] left-0 w-full text-white p-4 flex flex-col space-y-4"
-        style={{ backgroundColor: "rgba(44, 93, 50, 0.6)" }}>
+        <div
+          className="lg:hidden absolute top-[52px] left-0 w-full text-white p-4 flex flex-col space-y-4"
+          style={{ backgroundColor: "rgba(44, 93, 50, 0.6)" }}
+        >
           <a
             href="#"
             onClick={(e) => {
               e.preventDefault();
               onContactClick?.();
-              closeMenu(); // Ferme le menu après le clic
+              closeMenu();
             }}
             className="hover:text-[#734A93] transition-colors duration-300"
           >

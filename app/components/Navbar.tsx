@@ -71,11 +71,13 @@ const Navbar = forwardRef<HTMLElement, NavbarProps>(({ className, onContactClick
       </div>
 
       {/* Logo centré */}
-      <div className="absolute left-1/2 top-1 transform -translate-x-1/2">
-        <img
+      <div className="absolute left-1/2 top-1 transform -translate-x-1/2 cursor-pointer">
+        <Image
           src="/img/logo/logo.png"
           alt="SYN logo"
-          className={`cursor-pointer transition-all duration-300 origin-top ${scrolled ? 'h-12' : 'h-20'}`}
+          width={scrolled ? 168 : 280}  // 12*4 = 48px, 20*4=80px (taille en px, car Tailwind h-12 = 3rem = 48px)
+          height={scrolled ? 48 : 80}
+          className="transition-all duration-300 origin-top"
           onClick={() => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
